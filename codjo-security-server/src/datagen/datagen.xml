@@ -1,0 +1,25 @@
+<entities>
+    <entity name="net.codjo.security.common.message.ModelManager" table="PM_SEC_MODEL">
+        <description>Table de configuration</description>
+        <feature>
+            <sql/>
+        </feature>
+        <properties>
+            <field name="version" type="int">
+                <description>Version d'encodage</description>
+                <comment>Version de l'encodage XML utilisé</comment>
+                <sql required="true" type="integer"/>
+            </field>
+            <field name="lastUpdate" type="timestamp">
+                <description>Date de derniere maj</description>
+                <comment>Date de derniere maj</comment>
+                <sql default="getDate()" type="timestamp"/>
+            </field>
+            <field name="model" type="string">
+                <description>Model de sécurité</description>
+                <comment>Model de sécurité encodé en XML</comment>
+                <sql type="text"/>
+            </field>
+        </properties>
+    </entity>
+</entities>

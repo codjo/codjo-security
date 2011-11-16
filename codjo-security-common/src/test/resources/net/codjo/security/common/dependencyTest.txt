@@ -1,0 +1,19 @@
+net.codjo.security.common
+	-> net.codjo.agent
+
+net.codjo.security.common.api
+	-> net.codjo.agent
+
+
+net.codjo.security.common.datagen
+	-> net.codjo.agent
+	-> net.codjo.security.common.api
+
+net.codjo.security.common.login
+	-> net.codjo.agent
+	-> net.codjo.security.common
+	-> net.codjo.security.common.api
+	
+net.codjo.security.common.message
+	-> net.codjo.test.common
+	-> net.codjo.test.common.matcher

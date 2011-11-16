@@ -1,0 +1,9 @@
+;functionRole1;functionRole2;functionRole3;functionRole4;userRole1;userRole2;userRole3;userRole4
+functionRole1;;;;;1;1;;
+functionRole2;;;;;1;1;;
+functionRole3;;;;;1;;1;
+unitRole1;1;;;;2 (functionRole1);2 (functionRole1);1;
+unitRole2;1;1;;;2 (functionRole1), 2 (functionRole2);1, 2 (functionRole1), 2 (functionRole2);;
+unitRole3;;;1;;2 (functionRole3);;2 (functionRole3);
+unitRole4;;1;;;2 (functionRole2);2 (functionRole2);;
+unitRole5;;;;;;;;

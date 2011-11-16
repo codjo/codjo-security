@@ -1,0 +1,70 @@
+net.codjo.security.server.api
+	-> net.codjo.agent
+	-> net.codjo.security.common
+	-> net.codjo.security.common.api
+	-> net.codjo.security.common.datagen
+	-> net.codjo.security.common.message
+
+net.codjo.security.server.login
+	-> net.codjo.agent
+	-> net.codjo.agent.behaviour
+	-> net.codjo.plugin.common.session
+	-> net.codjo.security.common.login
+	-> net.codjo.security.server.api
+
+net.codjo.security.server.model
+	-> net.codjo.security.common.api
+	-> net.codjo.security.server.api
+
+net.codjo.security.server.plugin
+    -> net.codjo.ads
+	-> net.codjo.agent
+	-> net.codjo.agent.protocol
+	-> net.codjo.crypto.common
+	-> net.codjo.plugin.common
+	-> net.codjo.plugin.common.session
+	-> net.codjo.plugin.server
+	-> net.codjo.security.common.api
+	-> net.codjo.security.server.login
+	-> net.codjo.security.common.message
+	-> net.codjo.security.server.api
+	-> net.codjo.security.server.model
+	-> net.codjo.security.server.service.ads
+	-> net.codjo.security.server.service.ldap
+	-> net.codjo.security.server.storage
+	-> net.codjo.sql.server
+	-> net.codjo.util.system
+
+net.codjo.security.server.service
+	-> net.codjo.agent
+	-> net.codjo.plugin.common.session
+	-> net.codjo.security.common
+	-> net.codjo.security.common.api
+	-> net.codjo.security.server.api
+	-> net.codjo.security.server.model
+
+net.codjo.security.server.service.ads
+	-> net.codjo.ads
+	-> net.codjo.agent
+	-> net.codjo.plugin.common.session
+	-> net.codjo.security.common
+	-> net.codjo.security.server.api
+	-> net.codjo.security.server.model
+	-> net.codjo.security.server.service
+
+net.codjo.security.server.service.ldap
+	-> net.codjo.agent
+	-> net.codjo.plugin.common.session
+	-> net.codjo.security.common
+	-> net.codjo.security.server.api
+	-> net.codjo.security.server.model
+	-> net.codjo.security.server.service
+
+net.codjo.security.server.storage
+	-> net.codjo.agent
+	-> net.codjo.plugin.common.session
+	-> net.codjo.security.common.message
+	-> net.codjo.security.server.api
+	-> net.codjo.sql.server
+	-> net.codjo.sql.server.util
+	-> net.codjo.util.file

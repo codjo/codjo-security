@@ -1,0 +1,13 @@
+net.codjo.security.client
+
+net.codjo.security.client.plugin
+	-> net.codjo.agent
+	-> net.codjo.agent.test
+	-> net.codjo.plugin.common
+	-> net.codjo.plugin.common.session
+	-> net.codjo.security.common
+	-> net.codjo.security.common.api
+	-> net.codjo.security.common.login
+	-> net.codjo.test.common
+	-> net.codjo.test.common.fixture
+	-> net.codjo.util.system

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+    <body>
+        <release version="0.1" date="2007-05-09" description="Version initial">
+            <action dev="gonnot,boissi" type="add">
+                Création de la librairie a partir de agf-agent-bootstrap et agf-mad
+            </action>
+        </release>
+    </body>
+</document>

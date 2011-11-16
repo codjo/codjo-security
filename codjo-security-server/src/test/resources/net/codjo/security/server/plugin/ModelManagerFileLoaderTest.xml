@@ -1,0 +1,15 @@
+<model>
+    <roles>
+        <role name='guest'/>
+    </roles>
+    <grants>
+        <entry>
+            <user name='smith'/>
+            <list>
+                <role reference='../../../../roles/role'/>
+            </list>
+        </entry>
+    </grants>
+</model>
+
+

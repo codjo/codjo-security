@@ -1,0 +1,50 @@
+ ------
+ Introduction
+ ------
+ AGF Development Team
+ ------
+ 9 May 2007
+ ------
+
+Librairie securité
+
+    Cette librairie permet de gerer les permissions/authentification utilisateurs.
+
+Mise en place
+
+* Dépendances ?
+
+* Datagen
+
+    Configuration....
+
+* Server
+
+    Ajouter le plugin :)
+
+http://maven.apache.org/guides/mini/guide-snippet-macro.html
+%{snippet|id=snip-id|url=http://svn.example.com/path/to/Sample.java}
+%{snippet|id=snip-id|url=file:///path/to/Sample.java}
+%{snippet|id=abc|file=src/main/webapp/index.jsp}
+
+* Gui
+
+Utilisation
+
+* Client
+
+    Utilisation de la classe User se trouvant dans le GuiContext
+
+* Server
+
+    Utilisation de la classe User accessible via le service securité.
+
+Extension
+
+
+Divers
+
+* Authentification LDAP
+
+    Utilisation de la classe LDAP...
+

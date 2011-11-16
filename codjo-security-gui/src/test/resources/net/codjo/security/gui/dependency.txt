@@ -1,0 +1,43 @@
+net.codjo.security.gui.api
+	-> net.codjo.security.common.message
+
+net.codjo.security.gui.communication
+	-> net.codjo.agent
+	-> net.codjo.agent.protocol
+	-> net.codjo.security.common.api
+	-> net.codjo.security.common.message
+	-> net.codjo.security.gui.api
+
+net.codjo.security.gui.login
+	-> net.codjo.gui.toolkit.button
+	-> net.codjo.gui.toolkit.swing
+
+net.codjo.security.gui.model
+	-> net.codjo.security.common.message
+
+net.codjo.security.gui.plugin
+	-> net.codjo.agent
+	-> net.codjo.gui.toolkit.util
+	-> net.codjo.plugin.common
+	-> net.codjo.plugin.gui
+	-> net.codjo.security.client.plugin
+	-> net.codjo.security.common
+	-> net.codjo.security.common.api
+	-> net.codjo.security.gui.api
+	-> net.codjo.security.gui.communication
+	-> net.codjo.security.gui.login
+	-> net.codjo.security.gui.user
+
+net.codjo.security.gui.search
+	-> net.codjo.gui.toolkit.text
+
+net.codjo.security.gui.user
+    -> net.codjo.gui.toolkit
+    -> net.codjo.gui.toolkit.text
+    -> net.codjo.gui.toolkit.table
+	-> net.codjo.security.common.api
+	-> net.codjo.security.common.message
+	-> net.codjo.security.gui.api
+	-> net.codjo.security.gui.model
+	-> net.codjo.security.gui.search
+	-> net.codjo.util.file

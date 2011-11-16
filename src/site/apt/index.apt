@@ -1,0 +1,36 @@
+ ------
+ Introduction
+ ------
+ AGF Development Team
+ ------
+ 9 May 2007
+ ------
+
+Librairie securité
+
+    Cette librairie permet de gerer les permissions/authentification utilisateurs.
+
+    Par défaut, le plugin authentifie l'utilisateur auprès d'un serveur LDAP. La gestion
+    des profils est configurée via Datagen (noeud <<</data/roles>>>) ainsi que d'une
+    structure BD.
+
+* Mise en place
+
+    La mise en place du composant est expliqué {{{install.html}ici}}.
+
+* Utilisation
+
+    Les instructions permettant d'utiliser le composant se trouve {{{usage.html}ici}}.
+
+* Utilisation avancée
+
+    * {{{advanced-role.html}Ajouter des rôles dynamiquement}} à un profil utilisateur.
+
+    * {{{advanced-test.html}Tester la sécurité}} dans son application.
+
+    * Définir {{{advanced-newSystem.html}un nouveau système d'authentification}} pour son application.
+
+* Exemples
+
+    * Le composant sécurité en {{{sample-5minutes.html}5 minutes}}.
+

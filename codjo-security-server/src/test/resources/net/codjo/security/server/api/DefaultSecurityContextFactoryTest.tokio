@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Scenarii SYSTEM "scenarii.dtd">
+<Scenarii name="TestCaseName">
+    <Scenario id="UserWithOneGroup">
+        <comment></comment>
+        <input>
+            <table name="PM_SEC_USER">
+                <row>
+                    <field name="USER_ID" value="boissie"/>
+                </row>
+                <row>
+                    <field name="USER_ID" value="gonnot"/>
+                </row>
+            </table>
+            <table name="PM_SEC_GROUP" identityInsert="on">
+                <row>
+                    <field name="GROUP_ID" value="0"/>
+                    <field name="GROUP_NAME" value="monGroup"/>
+                </row>
+                <row>
+                    <field name="GROUP_ID" value="1"/>
+                    <field name="GROUP_NAME" value="autreGroupe"/>
+                </row>
+            </table>
+            <table name="PM_SEC_USER_GROUP">
+                <row>
+                    <field name="USER_ID" value="boissie"/>
+                    <field name="GROUP_ID" value="0"/>
+                </row>
+                <row>
+                    <field name="USER_ID" value="gonnot"/>
+                    <field name="GROUP_ID" value="1"/>
+                </row>
+            </table>
+            <table name="PM_SEC_GROUP_ROLE">
+                <row>
+                    <field name="ROLE_NAME" value="myInsertHandler"/>
+                    <field name="GROUP_ID" value="0"/>
+                </row>
+            </table>
+        </input>
+        <etalon>
+        </etalon>
+    </Scenario>
+
+    <Scenario id="UserWithMultipleGroup">
+        <comment></comment>
+        <input>
+            <table name="PM_SEC_USER">
+                <row>
+                    <field name="USER_ID" value="boissie"/>
+                </row>
+                <row>
+                    <field name="USER_ID" value="gonnot"/>
+                </row>
+            </table>
+            <table name="PM_SEC_GROUP" identityInsert="on">
+                <row>
+                    <field name="GROUP_ID" value="0"/>
+                    <field name="GROUP_NAME" value="monGroup"/>
+                </row>
+                <row>
+                    <field name="GROUP_ID" value="1"/>
+                    <field name="GROUP_NAME" value="autreGroupe"/>
+                </row>
+            </table>
+            <table name="PM_SEC_USER_GROUP">
+                <row>
+                    <field name="USER_ID" value="boissie"/>
+                    <field name="GROUP_ID" value="0"/>
+                </row>
+                <row>
+                    <field name="USER_ID" value="boissie"/>
+                    <field name="GROUP_ID" value="1"/>
+                </row>
+                <row>
+                    <field name="USER_ID" value="gonnot"/>
+                    <field name="GROUP_ID" value="1"/>
+                </row>
+            </table>
+            <table name="PM_SEC_GROUP_ROLE">
+                <row>
+                    <field name="ROLE_NAME" value="myInsertHandler"/>
+                    <field name="GROUP_ID" value="0"/>
+                </row>
+                <row>
+                    <field name="ROLE_NAME" value="myUpdateHandler"/>
+                    <field name="GROUP_ID" value="1"/>
+                </row>
+                <row>
+                    <field name="ROLE_NAME" value="myDeleteHandler"/>
+                    <field name="GROUP_ID" value="1"/>
+                </row>
+            </table>
+        </input>
+        <etalon>
+        </etalon>
+    </Scenario>
+
+    <Scenario id="UserWithImbricatedGroup">
+        <comment></comment>
+        <input>
+            <table name="PM_SEC_USER">
+                <row>
+                    <field name="USER_ID" value="boissie"/>
+                </row>
+                <row>
+                    <field name="USER_ID" value="gonnot"/>
+                </row>
+            </table>
+            <table name="PM_SEC_GROUP" identityInsert="on">
+                <row>
+                    <field name="GROUP_ID" value="0"/>
+                    <field name="GROUP_NAME" value="monGroup"/>
+                </row>
+                <row>
+                    <field name="GROUP_ID" value="1"/>
+                    <field name="GROUP_NAME" value="autreGroupe"/>
+                </row>
+                <row>
+                    <field name="GROUP_ID" value="2"/>
+                    <field name="GROUP_NAME" value="GroupeCompose"/>
+                </row>
+            </table>
+            <table name="PM_SEC_USER_GROUP">
+                <row>
+                    <field name="USER_ID" value="boissie"/>
+                    <field name="GROUP_ID" value="2"/>
+                </row>
+                <row>
+                    <field name="USER_ID" value="boissie"/>
+                    <field name="GROUP_ID" value="0"/>
+                </row>
+                <row>
+                    <field name="USER_ID" value="gonnot"/>
+                    <field name="GROUP_ID" value="1"/>
+                </row>
+            </table>
+            <table name="PM_SEC_GROUP_ROLE">
+                <row>
+                    <field name="ROLE_NAME" value="myInsertHandler"/>
+                    <field name="GROUP_ID" value="0"/>
+                </row>
+                <row>
+                    <field name="ROLE_NAME" value="myUpdateHandler"/>
+                    <field name="GROUP_ID" value="1"/>
+                </row>
+                <row>
+                    <field name="ROLE_NAME" value="myDeleteHandler"/>
+                    <field name="GROUP_ID" value="1"/>
+                </row>
+                <row>
+                    <field name="ROLE_NAME" value="myArchiveHandler"/>
+                    <field name="GROUP_ID" value="2"/>
+                </row>
+            </table>
+            <table name="PM_SEC_GROUP_GROUP">
+                <row>
+                    <field name="GROUP_ID" value="2"/>
+                    <field name="SUB_GROUP_ID" value="1"/>
+                </row>
+            </table>
+        </input>
+        <etalon/>
+    </Scenario>
+</Scenarii>

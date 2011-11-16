@@ -1,0 +1,91 @@
+net.codjo.security.server
+
+net.codjo.security.server.api
+	-> net.codjo.agent
+	-> net.codjo.plugin.common.session
+	-> net.codjo.security.common
+	-> net.codjo.sql.server
+	-> net.codjo.security.common.api
+	-> net.codjo.test.common
+	-> net.codjo.test.common.mock
+
+net.codjo.security.server.login
+	-> net.codjo.agent
+	-> net.codjo.agent.test
+	-> net.codjo.plugin.common.session
+	-> net.codjo.security.common
+	-> net.codjo.security.common.login
+	-> net.codjo.security.server.api
+	-> net.codjo.test.common
+	-> net.codjo.test.common.matcher
+
+net.codjo.security.server.model
+	-> net.codjo.security.common.api
+	-> net.codjo.security.common.message
+	-> net.codjo.security.server.api
+	-> net.codjo.test.common
+
+net.codjo.security.server.plugin
+	-> net.codjo.ads
+	-> net.codjo.agent
+	-> net.codjo.agent.behaviour
+	-> net.codjo.plugin.common
+	-> net.codjo.plugin.common.session
+	-> net.codjo.plugin.server
+	-> net.codjo.security.common
+	-> net.codjo.agent.test
+	-> net.codjo.crypto.common
+	-> net.codjo.security.common.api
+	-> net.codjo.security.common.message
+	-> net.codjo.security.server.service.ads
+	-> net.codjo.security.server.api
+	-> net.codjo.security.server.model
+	-> net.codjo.security.server.service.ldap
+	-> net.codjo.security.server.storage
+	-> net.codjo.test.common
+	-> net.codjo.test.common.matcher
+	-> net.codjo.sql.server.plugin
+	-> net.codjo.util.file
+	-> de.dit.ads.auth
+	-> de.dit.ads.auth.ldap
+	-> de.dit.ads.common
+	-> de.dit.ads.prefs
+
+net.codjo.security.server.service
+	-> net.codjo.agent
+	-> net.codjo.security.server.model
+	-> net.codjo.security.server.storage
+	-> net.codjo.test.common
+
+net.codjo.security.server.service.ads
+	-> net.codjo.ads
+	-> net.codjo.agent
+	-> net.codjo.security.common
+	-> net.codjo.security.common.api
+	-> net.codjo.security.server.api
+	-> net.codjo.security.server.model
+	-> net.codjo.security.server.storage
+	-> net.codjo.test.common
+
+net.codjo.security.server.service.ldap
+	-> net.codjo.agent
+	-> net.codjo.plugin.common.session
+	-> net.codjo.security.common
+	-> net.codjo.security.common.message
+	-> net.codjo.security.server.api
+	-> net.codjo.security.server.model
+	-> net.codjo.security.server.storage
+	-> net.codjo.test.common
+	-> net.codjo.test.common.matcher
+
+net.codjo.security.server.storage
+	-> net.codjo.agent
+	-> net.codjo.database.common.api
+	-> net.codjo.database.common.api.structure
+	-> net.codjo.datagen
+	-> net.codjo.security.common.message
+	-> net.codjo.security.server.api
+	-> net.codjo.sql.server
+	-> net.codjo.test.common
+	-> net.codjo.test.common.fixture
+	-> net.codjo.util.file

@@ -1,0 +1,53 @@
+ ------
+ Usage
+ ------
+ AGF Development Team
+ ------
+ 9 May 2007
+ ------
+
+Installation
+
+    Cette page décrit comment installer et configurer le plugin de sécurité dans votre application.
+
+* Configuration serveur
+
+    Dans le fichier de configuration du serveur server-config.properties
+    il faut ajouter les propriétés suivantes :
+
+--------------------------------------------------------------------
+LdapSecurityService.jdbc.login = capri
+LdapSecurityService.jdbc.password = capri_pwd
+LdapSecurityService.ldap.url = ldap://a7sw302:389
+LdapSecurityService.ldap.postfix = @AM.AGF.FR
+LdapSecurityService.ldap.factory = com.sun.jndi.ldap.LdapCtxFactory
+--------------------------------------------------------------------
+
+    NB : Les propriétés ldap sont optionnels
+
+* Intégration IHM
+
+    Il suffit d'ajouter les actions suivantes dans votre menu.
+
+Développement
+
+    Pour les sessions de développement il est possible de fournir un fichier xml contenant un modèle de
+    sécurité par défaut.
+
+    Dans le module serveur, ajouter un fichier <<</src/config/security.xml>>> avec un contenu similaire à
+    l'exemple ci-dessous:
+
++--------------------------------------------------------------------+
+<model>
+    <grants>
+        <entry>
+            <user name="user_dev"/>
+            <list>
+                <role name="Administration"/>
+            </list>
+        </entry>
+    </grants>
+</model>
++--------------------------------------------------------------------+
+
+

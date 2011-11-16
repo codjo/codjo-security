@@ -1,0 +1,21 @@
+net.codjo.security.common
+	-> net.codjo.agent
+
+net.codjo.security.common.api
+	-> net.codjo.agent
+
+net.codjo.security.common.datagen
+	-> net.codjo.agent
+	-> net.codjo.security.common.api
+
+net.codjo.security.common.login
+	-> net.codjo.agent
+	-> net.codjo.security.common
+	-> net.codjo.security.common.api
+	
+net.codjo.security.common.message
+    -> net.codjo.security.common.api
+	-> com.thoughtworks.xstream
+	-> com.thoughtworks.xstream.converters
+	-> com.thoughtworks.xstream.converters.basic
+	-> com.thoughtworks.xstream.io.xml
