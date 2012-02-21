@@ -4,10 +4,8 @@ net.codjo.security.server.api
 	-> net.codjo.agent
 	-> net.codjo.plugin.common.session
 	-> net.codjo.security.common
-	-> net.codjo.sql.server
 	-> net.codjo.security.common.api
 	-> net.codjo.test.common
-	-> net.codjo.test.common.mock
 
 net.codjo.security.server.login
 	-> net.codjo.agent

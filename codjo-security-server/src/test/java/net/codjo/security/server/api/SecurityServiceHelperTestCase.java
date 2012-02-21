@@ -29,26 +29,6 @@ public abstract class SecurityServiceHelperTestCase {
     protected abstract SecurityServiceHelper createSecurityServiceHelper();
 
 
-    protected ConnectionMock mockGetConnection() throws ClassNotFoundException {
-        ConnectionMock connection = new ConnectionMock();
-
-        JdbcServiceHelperMock helperMock = new JdbcServiceHelperMock(log);
-        ConnectionPoolMock poolMock = new ConnectionPoolMock(logger("pool"));
-        poolMock.mockGetConnection(connection);
-        helperMock.mockGetPool(poolMock);
-
-        securityServiceHelper.init(createAgent(helperMock));
-        return connection;
-    }
-
-
-    private AgentMock createAgent(JdbcServiceHelperMock helperMock) {
-        AgentMock anAgent = new AgentMock();
-        anAgent.mockGetHelper(helperMock);
-        return anAgent;
-    }
-
-
     protected LogString logger(String prefix) {
         return new LogString(prefix, log);
     }
