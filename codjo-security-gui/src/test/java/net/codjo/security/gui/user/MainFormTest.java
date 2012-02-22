@@ -73,7 +73,7 @@ public class MainFormTest extends UISpecTestCase {
                              .select(exportedFile))
               .run();
 
-        assertEquals(loadContent(resource("export.csv")),
+        assertEquals(removeWindowsSpecificCarriageReturn(loadContent(resource("export.csv"))),
                      removeWindowsSpecificCarriageReturn(loadContent(exportedFile)));
     }
 
