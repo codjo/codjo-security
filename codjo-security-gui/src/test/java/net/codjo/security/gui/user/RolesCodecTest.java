@@ -1,9 +1,11 @@
 package net.codjo.security.gui.user;
 import net.codjo.security.common.message.ModelManager;
-import net.codjo.util.file.FileUtil;
 import org.junit.Before;
 import org.junit.Test;
 
+import static net.codjo.security.gui.user.MainFormTest.removeWindowsSpecificCarriageReturn;
+import static net.codjo.security.gui.user.MainFormTest.resource;
+import static net.codjo.util.file.FileUtil.loadContent;
 import static org.junit.Assert.assertEquals;
 /**
  *
@@ -41,7 +43,8 @@ public class RolesCodecTest {
     @Test
     public void test_toCsv() throws Exception {
         String actual = rolesCodec.toCsv(modelManager);
-        String expected = FileUtil.loadContent(getClass().getResource("exportedRoles.csv"));
-        assertEquals(expected, actual);
+
+        assertEquals(removeWindowsSpecificCarriageReturn(loadContent(resource("exportedRoles.csv"))),
+                     removeWindowsSpecificCarriageReturn(actual));
     }
 }

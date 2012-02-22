@@ -78,7 +78,7 @@ public class MainFormTest extends UISpecTestCase {
     }
 
 
-    private static String removeWindowsSpecificCarriageReturn(String currentContent) {
+    static String removeWindowsSpecificCarriageReturn(String currentContent) {
         return currentContent.replaceAll("\r", "");
     }
 
@@ -330,7 +330,7 @@ public class MainFormTest extends UISpecTestCase {
     }
 
 
-    private static File resource(String name) {
+    static File resource(String name) {
         return new File(MainFormTest.class.getResource(name).getFile());
     }
 }
