@@ -11,7 +11,6 @@ import net.codjo.security.common.message.SecurityEngineConfiguration.UserManagem
 import net.codjo.security.common.message.User;
 import net.codjo.test.common.LogString;
 import net.codjo.test.common.PathUtil;
-import net.codjo.util.file.FileUtil;
 import org.uispec4j.ListBox;
 import org.uispec4j.Panel;
 import org.uispec4j.TabGroup;
@@ -26,6 +25,7 @@ import org.uispec4j.utils.ComponentUtils;
 
 import static net.codjo.security.common.message.SecurityEngineConfiguration.adsConfiguration;
 import static net.codjo.security.common.message.SecurityEngineConfiguration.defaultConfiguration;
+import static net.codjo.util.file.FileUtil.loadContent;
 
 public class MainFormTest extends UISpecTestCase {
     private MainForm mainForm;
@@ -65,7 +65,6 @@ public class MainFormTest extends UISpecTestCase {
                                       .addRoleToUser(role2, user2)
                                       .addRoleToUser(role3, user1).get());
 
-        File expectedFile = new File(getClass().getResource("/net/codjo/security/gui/export.csv").getFile());
         File exportedFile = File.createTempFile("exportTest", ".csv");
 
         WindowInterceptor.init(
@@ -74,9 +73,13 @@ public class MainFormTest extends UISpecTestCase {
                              .select(exportedFile))
               .run();
 
-        String expectedContent = FileUtil.loadContent(expectedFile);
-        String currentContent = FileUtil.loadContent(exportedFile);
-        assertEquals(expectedContent, currentContent);
+        assertEquals(loadContent(resource("export.csv")),
+                     removeWindowsSpecificCarriageReturn(loadContent(exportedFile)));
+    }
+
+
+    private static String removeWindowsSpecificCarriageReturn(String currentContent) {
+        return currentContent.replaceAll("\r", "");
     }
 
 
@@ -324,5 +327,10 @@ public class MainFormTest extends UISpecTestCase {
         JPanel mainPanel = (JPanel)getMainPanel().getAwtComponent();
         Object actionId = mainPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).get(keyStroke);
         mainPanel.getActionMap().get(actionId).actionPerformed(null);
+    }
+
+
+    private static File resource(String name) {
+        return new File(MainFormTest.class.getResource(name).getFile());
     }
 }
