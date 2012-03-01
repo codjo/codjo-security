@@ -40,11 +40,6 @@
         </dependency>
 
         <dependency>
-            <groupId>net.codjo.database</groupId>
-            <artifactId>codjo-database-main</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>net.codjo.plugin</groupId>
             <artifactId>codjo-plugin-common</artifactId>
         </dependency>
