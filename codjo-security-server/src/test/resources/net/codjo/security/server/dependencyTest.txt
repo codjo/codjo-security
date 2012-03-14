@@ -84,6 +84,7 @@ net.codjo.security.server.storage
 	-> net.codjo.security.common.message
 	-> net.codjo.security.server.api
 	-> net.codjo.sql.server
+	-> net.codjo.sql.server.util
 	-> net.codjo.test.common
 	-> net.codjo.test.common.fixture
 	-> net.codjo.util.file

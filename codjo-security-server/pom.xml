@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <!-- POM's layout - http://www.javaworld.com/javaworld/jw-05-2006/jw-0529-maven.html -->
 
     <modelVersion>4.0.0</modelVersion>
@@ -56,6 +57,18 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>net.codjo.database</groupId>
+            <artifactId>codjo-database-${databaseType}</artifactId>
+            <optional>true</optional>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.codjo.database</groupId>
+            <artifactId>codjo-database-${databaseType}-api</artifactId>
+            <optional>true</optional>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
             <groupId>net.codjo.plugin</groupId>
             <artifactId>codjo-plugin-common</artifactId>
         </dependency>
@@ -96,8 +109,13 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>net.codjo.database</groupId>
-            <artifactId>codjo-database-main</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.codjo.test</groupId>
+            <artifactId>codjo-test-common</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -150,14 +168,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--<plugin>-->
-            <!--<groupId>org.apache.maven.plugins</groupId>-->
-            <!--<artifactId>maven-jar-plugin</artifactId>-->
-            <!--<configuration>-->
-            <!--<exclude>-->
-            <!--</exclude>-->
-            <!--</configuration>-->
-            <!--</plugin>-->
         </plugins>
     </build>
 
