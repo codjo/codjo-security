@@ -11,6 +11,7 @@ import net.codjo.security.common.message.RoleComposite;
 import net.codjo.security.common.message.User;
 import net.codjo.security.server.storage.AbstractStorage.BadConfigurationException;
 import net.codjo.sql.server.ConnectionPoolMock;
+import net.codjo.sql.server.util.SqlTransactionalExecutor;
 import net.codjo.test.common.LogString;
 import net.codjo.test.common.fixture.CompositeFixture;
 import org.junit.After;
@@ -84,7 +85,12 @@ public class JdbcStorageTest {
         insertEmptyModel();
 
         String date = "2007-05-28 08:12:50";
-        jdbc.executeUpdate("update PM_SEC_MODEL set LAST_UPDATE='" + date + "'");
+
+        SqlTransactionalExecutor.init(jdbc.getConnection())
+              .prepare("update PM_SEC_MODEL set LAST_UPDATE=?")
+              .withTimestamp(Timestamp.valueOf(date))
+              .then()
+              .execute();
 
         assertEquals(Timestamp.valueOf(date), jdbcStorage.getModelTimestamp());
         log.assertContent("getConnection()",
