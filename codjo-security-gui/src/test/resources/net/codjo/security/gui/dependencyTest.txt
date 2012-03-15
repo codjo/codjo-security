@@ -36,5 +36,4 @@ net.codjo.security.gui.user
 	-> net.codjo.security.gui.communication
 	-> net.codjo.security.gui.model
 	-> net.codjo.test.common
-	-> net.codjo.database.common.api
 	-> net.codjo.util.file

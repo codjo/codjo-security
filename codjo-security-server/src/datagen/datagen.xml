@@ -13,7 +13,7 @@
             <field name="lastUpdate" type="timestamp">
                 <description>Date de derniere maj</description>
                 <comment>Date de derniere maj</comment>
-                <sql default="getDate()" type="timestamp"/>
+                <sql default="now" type="timestamp"/>
             </field>
             <field name="model" type="string">
                 <description>Model de sécurité</description>
