@@ -85,6 +85,12 @@
             <artifactId>codjo-gui-toolkit</artifactId>
         </dependency>
         <dependency>
+            <groupId>net.codjo.gui-toolkit</groupId>
+            <artifactId>codjo-gui-toolkit</artifactId>
+            <scope>test</scope>
+            <classifier>tests</classifier>
+        </dependency>
+        <dependency>
             <groupId>net.codjo.test</groupId>
             <artifactId>codjo-test-common</artifactId>
             <scope>test</scope>

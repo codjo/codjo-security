@@ -25,6 +25,7 @@ net.codjo.security.gui.plugin
 	-> net.codjo.security.gui.login
 	-> net.codjo.test.common
 	-> net.codjo.test.common.fixture
+	-> net.codjo.gui.toolkit.i18n
 
 net.codjo.security.gui.user
 	-> net.codjo.agent
