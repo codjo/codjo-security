@@ -20,6 +20,7 @@ public class DependencyTest extends PackageDependencyTestCase {
         dependency.addIgnoredPackage("com.intellij.uiDesigner.core");
         dependency.addIgnoredPackage("com.jgoodies");
         dependency.addIgnoredPackage("org.uispec4j");
+        dependency.addIgnoredPackage("org.uispec4j");
         dependency.assertDependency("dependencyTest.txt");
         dependency.assertNoCycle();
     }
