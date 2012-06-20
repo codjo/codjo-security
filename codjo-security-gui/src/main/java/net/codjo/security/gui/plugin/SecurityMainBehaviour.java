@@ -4,6 +4,8 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import javax.swing.SwingUtilities;
 import net.codjo.gui.toolkit.util.ErrorDialog;
+import net.codjo.i18n.common.TranslationManager;
+import net.codjo.i18n.gui.TranslationNotifier;
 import net.codjo.plugin.common.ApplicationCore;
 import net.codjo.plugin.common.ApplicationCore.MainBehaviour;
 import net.codjo.plugin.common.CommandLineArguments;
@@ -28,6 +30,8 @@ class SecurityMainBehaviour implements MainBehaviour {
     private final SecurityGuiConfiguration configuration;
     private final ApplicationCore applicationCore;
     private final LoginConfigLoader loginConfigLoader;
+    private TranslationManager translationManager;
+    private TranslationNotifier translationNotifier;
     private final Lock lock = new ReentrantLock();
     private final Condition authenticationSuccess = lock.newCondition();
     private LoginConfig loginConfig;
@@ -36,10 +40,14 @@ class SecurityMainBehaviour implements MainBehaviour {
 
     SecurityMainBehaviour(SecurityGuiConfiguration configuration,
                           ApplicationCore applicationCore,
-                          LoginConfigLoader loginConfigLoader) {
+                          LoginConfigLoader loginConfigLoader,
+                          TranslationManager translationManager,
+                          TranslationNotifier translationNotifier) {
         this.configuration = configuration;
         this.applicationCore = applicationCore;
         this.loginConfigLoader = loginConfigLoader;
+        this.translationManager = translationManager;
+        this.translationNotifier = translationNotifier;
     }
 
 
@@ -71,7 +79,11 @@ class SecurityMainBehaviour implements MainBehaviour {
 
 
     private void showLoginWindow() {
-        loginWindow = new LoginWindow(loginConfig, new MyLoginCallback(), configuration.getLoginExtraComponent());
+        loginWindow = new LoginWindow(loginConfig,
+                                      new MyLoginCallback(),
+                                      configuration.getLoginExtraComponent(),
+                                      translationManager,
+                                      translationNotifier);
 
         lock.lock();
         try {

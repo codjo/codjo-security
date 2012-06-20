@@ -7,6 +7,9 @@ package net.codjo.security.gui.plugin;
 import net.codjo.agent.AgentContainer;
 import net.codjo.agent.ContainerConfiguration;
 import net.codjo.agent.UserId;
+import net.codjo.i18n.common.Language;
+import net.codjo.i18n.common.TranslationManager;
+import net.codjo.i18n.gui.plugin.InternationalizationGuiPlugin;
 import net.codjo.plugin.common.ApplicationCore;
 import net.codjo.plugin.gui.GuiConfiguration;
 import net.codjo.plugin.gui.GuiPlugin;
@@ -27,10 +30,14 @@ public class SecurityGuiPlugin implements GuiPlugin {
     private AgentContainer agentContainer;
 
 
-    public SecurityGuiPlugin(ApplicationCore applicationCore) {
-        applicationCore.setMainBehaviour(new SecurityMainBehaviour(getConfiguration(),
-                                                                   applicationCore,
-                                                                   new LoginConfigLoader(getConfiguration())));
+    public SecurityGuiPlugin(ApplicationCore applicationCore, InternationalizationGuiPlugin i18nPlugin) {
+        registerLanguageBundles(i18nPlugin.getConfiguration().getTranslationManager());
+        applicationCore.setMainBehaviour(
+              new SecurityMainBehaviour(getConfiguration(),
+                                        applicationCore,
+                                        new LoginConfigLoader(getConfiguration()),
+                                        i18nPlugin.getConfiguration().getTranslationManager(),
+                                        i18nPlugin.getConfiguration().getTranslationNotifier()));
         applicationCore.addGlobalComponent(ConfigurationSessionFactory.class, new MySessionFactory());
         operations = new SecurityGuiPluginOperationsImpl(applicationCore);
     }
@@ -61,6 +68,12 @@ public class SecurityGuiPlugin implements GuiPlugin {
 
     public void initGui(GuiConfiguration guiConfiguration) throws Exception {
         guiConfiguration.registerAction(this, USER_FORM_ACTION_ID, UserFormAction.class);
+    }
+
+
+    private void registerLanguageBundles(TranslationManager translationManager) {
+        translationManager.addBundle("net.codjo.security.gui.i18n", Language.FR);
+        translationManager.addBundle("net.codjo.security.gui.i18n", Language.EN);
     }
 
 

@@ -3,8 +3,6 @@ import javax.swing.JTextField;
 import net.codjo.agent.ContainerConfiguration;
 import net.codjo.agent.test.AgentContainerFixture;
 import net.codjo.gui.toolkit.i18n.InternationalizationTestUtil;
-import net.codjo.gui.toolkit.i18n.InternationalizationUtil;
-import net.codjo.gui.toolkit.util.ErrorDialog;
 import net.codjo.i18n.common.Language;
 import net.codjo.i18n.common.TranslationManager;
 import net.codjo.i18n.gui.TranslationNotifier;
@@ -38,13 +36,26 @@ public class SecurityMainBehaviourTest extends UISpecTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+        TranslationManager translationManager = new TranslationManager();
+        TranslationNotifier translationNotifier = new TranslationNotifier(Language.FR, translationManager);
+
+        registerLanguageBundles(translationManager);
+
         InternationalizationTestUtil.initErrorDialogTranslationBackpack();
         loginConfigLoaderMock.mockLoad(createLoginConfig());
         applicationCoreMock.mockStart();
         securityMainBehaviour = new SecurityMainBehaviour(securityGuiConfiguration,
                                                           applicationCoreMock,
-                                                          loginConfigLoaderMock);
+                                                          loginConfigLoaderMock,
+                                                          translationManager,
+                                                          translationNotifier);
         systemExitFixture.doSetUp(log);
+    }
+
+
+    private void registerLanguageBundles(TranslationManager translationManager) {
+        translationManager.addBundle("net.codjo.security.gui.i18n", Language.FR);
+        translationManager.addBundle("net.codjo.security.gui.i18n", Language.EN);
     }
 
 
