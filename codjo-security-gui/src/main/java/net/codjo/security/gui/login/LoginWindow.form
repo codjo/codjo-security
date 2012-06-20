@@ -39,7 +39,7 @@
         <properties/>
         <border type="etched"/>
         <children>
-          <component id="3eb47" class="javax.swing.JLabel">
+          <component id="3eb47" class="javax.swing.JLabel" binding="titleLabel">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -47,7 +47,7 @@
               <text value="Veuillez saisir vos identifiants Windows :"/>
             </properties>
           </component>
-          <component id="b11cd" class="javax.swing.JLabel">
+          <component id="b11cd" class="javax.swing.JLabel" binding="loginLabel">
             <constraints>
               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -64,7 +64,7 @@
             </constraints>
             <properties/>
           </component>
-          <component id="cbdf5" class="javax.swing.JLabel">
+          <component id="cbdf5" class="javax.swing.JLabel" binding="passwordLabel">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -93,13 +93,13 @@
               <component id="628d" class="javax.swing.JButton" binding="okButton">
                 <constraints/>
                 <properties>
-                  <text value="&amp;OK"/>
+                  <text value="OK"/>
                 </properties>
               </component>
               <component id="9a2f5" class="javax.swing.JButton" binding="quitButton">
                 <constraints/>
                 <properties>
-                  <text value="&amp;Quitter"/>
+                  <text value="Quitter"/>
                 </properties>
               </component>
             </children>
