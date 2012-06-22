@@ -11,11 +11,16 @@ net.codjo.security.gui.communication
 net.codjo.security.gui.login
 	-> net.codjo.gui.toolkit.button
 	-> net.codjo.gui.toolkit.swing
+	-> net.codjo.i18n.common
+	-> net.codjo.i18n.gui
 
 net.codjo.security.gui.model
 	-> net.codjo.security.common.message
 
 net.codjo.security.gui.plugin
+	-> net.codjo.i18n.common
+	-> net.codjo.i18n.gui
+	-> net.codjo.i18n.gui.plugin
 	-> net.codjo.agent
 	-> net.codjo.gui.toolkit.util
 	-> net.codjo.plugin.common

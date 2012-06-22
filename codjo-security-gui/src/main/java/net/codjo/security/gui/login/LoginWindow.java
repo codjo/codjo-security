@@ -3,7 +3,6 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.net.URL;
@@ -14,6 +13,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -21,6 +21,8 @@ import javax.swing.WindowConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import net.codjo.gui.toolkit.swing.SwingWorker;
+import net.codjo.i18n.common.TranslationManager;
+import net.codjo.i18n.gui.TranslationNotifier;
 import net.codjo.security.gui.login.LoginConfig.Ldap;
 import net.codjo.security.gui.login.LoginConfig.Server;
 import org.apache.log4j.Logger;
@@ -32,6 +34,8 @@ public class LoginWindow extends JFrame {
     private static final String LAST_SELECTED_LDAP = "LAST_SELECTED_LDAP";
     private final LoginConfig loginConfig;
     private final LoginCallback loginCallback;
+    private TranslationManager translationManager;
+    private TranslationNotifier notifier;
     private JPanel mainPanel;
     private JTextField loginField;
     private JPasswordField passwordField;
@@ -41,11 +45,20 @@ public class LoginWindow extends JFrame {
     private JButton okButton;
     private JButton quitButton;
     private JPanel extraComponentContainer;
+    private JLabel titleLabel;
+    private JLabel loginLabel;
+    private JLabel passwordLabel;
 
 
-    public LoginWindow(LoginConfig loginConfig, LoginCallback loginCallback, JComponent extraComponent) {
+    public LoginWindow(LoginConfig loginConfig,
+                       LoginCallback loginCallback,
+                       JComponent extraComponent,
+                       TranslationManager translationManager,
+                       TranslationNotifier notifier) {
         this.loginConfig = loginConfig;
         this.loginCallback = loginCallback;
+        this.translationManager = translationManager;
+        this.notifier = notifier;
 
         if (extraComponent != null) {
             extraComponentContainer.add(extraComponent, BorderLayout.CENTER);
@@ -100,15 +113,18 @@ public class LoginWindow extends JFrame {
 
 
     private void initGui() {
-        okButton.setActionCommand("OK");
-        okButton.setMnemonic(KeyEvent.VK_O);
+        titleLabel.setText(translationManager.translate("LoginWindow.titleLabel", notifier.getLanguage()));
+        loginLabel.setText(translationManager.translate("LoginWindow.loginLabel", notifier.getLanguage()));
+        passwordLabel.setText(translationManager.translate("LoginWindow.passwordLabel", notifier.getLanguage()));
+        seePasswordCheckBox.setText(translationManager.translate("LoginWindow.seePasswordCheckBoxLabel",
+                                                                 notifier.getLanguage()));
+
+        okButton.setText("OK");
         okButton.setEnabled(false);
 
-        quitButton.setActionCommand("Quitter");
-        quitButton.setMnemonic(KeyEvent.VK_Q);
+        quitButton.setText(translationManager.translate("LoginWindow.quitButton", notifier.getLanguage()));
 
-        DocumentListener listener =
-              new ButtonEnabilityListener(loginField, passwordField, okButton);
+        DocumentListener listener = new ButtonEnabilityListener(loginField, passwordField, okButton);
         loginField.getDocument().addDocumentListener(listener);
         passwordField.getDocument().addDocumentListener(listener);
 
@@ -155,9 +171,11 @@ public class LoginWindow extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 savePreferences();
 
-                final AnimatedSplash splash = new AnimatedSplash(LoginWindow.this,
-                                                                 "Connexion en cours, veuillez patienter ...",
-                                                                 getSplashIcon());
+                final AnimatedSplash splash =
+                      new AnimatedSplash(LoginWindow.this,
+                                         translationManager.translate("LoginWindow.loginInProgress",
+                                                                      notifier.getLanguage()),
+                                         getSplashIcon());
                 setVisible(false);
                 splash.start();
                 new SwingWorker() {
@@ -232,7 +250,8 @@ public class LoginWindow extends JFrame {
 
 
     private String createTitle() {
-        return new StringBuilder().append("Connexion à ")
+        return new StringBuilder().append(translationManager.translate("LoginWindow.title", notifier.getLanguage()))
+              .append(" ")
               .append(loginConfig.getApplicationName())
               .append(isMultiEnvironment() ? "" : " " + loginConfig.getServerList().get(0).getKey())
               .append(" v-")

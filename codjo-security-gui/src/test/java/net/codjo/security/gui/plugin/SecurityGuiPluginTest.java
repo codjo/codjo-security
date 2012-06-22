@@ -1,4 +1,5 @@
 package net.codjo.security.gui.plugin;
+import net.codjo.i18n.gui.plugin.InternationalizationGuiPlugin;
 import net.codjo.plugin.common.ApplicationCoreMock;
 import net.codjo.plugin.gui.GuiConfigurationMock;
 import net.codjo.security.common.api.User;
@@ -20,7 +21,7 @@ import static org.junit.Assert.fail;
 public class SecurityGuiPluginTest {
     private LogString log = new LogString();
     private ApplicationCoreMock coreMock = new ApplicationCoreMock(log);
-    private SecurityGuiPlugin guiPlugin = new SecurityGuiPlugin(coreMock);
+    private SecurityGuiPlugin guiPlugin = new SecurityGuiPlugin(coreMock, new InternationalizationGuiPlugin(coreMock));
 
 
     @Test

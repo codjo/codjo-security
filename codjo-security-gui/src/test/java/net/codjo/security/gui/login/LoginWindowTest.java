@@ -1,7 +1,11 @@
 package net.codjo.security.gui.login;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import net.codjo.i18n.common.Language;
+import net.codjo.i18n.common.TranslationManager;
+import net.codjo.i18n.gui.TranslationNotifier;
 import net.codjo.security.gui.login.LoginConfig.Ldap;
 import net.codjo.security.gui.login.LoginConfig.Server;
 import net.codjo.security.gui.login.LoginWindow.LoginCallback;
@@ -23,19 +27,24 @@ public class LoginWindowTest extends UISpecTestCase {
     private LoginCallbackMock loginHelperMock = new LoginCallbackMock(log);
     private LoginWindow loginWindow;
     private LoginConfig loginConfig;
+    private TranslationManager translationManager;
+    private TranslationNotifier translationNotifier;
 
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+        translationManager = new TranslationManager();
+        translationNotifier = new TranslationNotifier(Language.FR, translationManager);
+        registerLanguageBundles(translationManager);
         loginConfig = createLoginConfig(false, true);
-        loginWindow = new LoginWindow(loginConfig, loginHelperMock, null);
+        createLoginWindow(loginConfig, loginHelperMock, null);
     }
 
 
     public void test_frameIcon() throws Exception {
         loginConfig.setApplicationIcon("/images/security.icon.gif");
-        loginWindow = new LoginWindow(loginConfig, loginHelperMock, null);
+        createLoginWindow(loginConfig, loginHelperMock, null);
         Window window = new Window(loginWindow);
 
         JFrame frame = (JFrame)window.getAwtComponent();
@@ -45,7 +54,7 @@ public class LoginWindowTest extends UISpecTestCase {
 
     public void test_frameIconNotSet() throws Exception {
         loginConfig.setApplicationIcon(null);
-        loginWindow = new LoginWindow(loginConfig, loginHelperMock, null);
+        createLoginWindow(loginConfig, loginHelperMock, null);
         Window window = new Window(loginWindow);
 
         JFrame frame = (JFrame)window.getAwtComponent();
@@ -55,7 +64,7 @@ public class LoginWindowTest extends UISpecTestCase {
 
     public void test_loginCallback_doConnectNotInThreadSwing() throws Exception {
         LoginCallbackMock loginCallbackMock = new LoginCallbackMock(log);
-        loginWindow = new LoginWindow(loginConfig, loginCallbackMock, null);
+        loginWindow = new LoginWindow(loginConfig, loginCallbackMock, null, translationManager, translationNotifier);
 
         Window window = new Window(loginWindow);
         TextBox login = window.getTextBox("login");
@@ -101,7 +110,7 @@ public class LoginWindowTest extends UISpecTestCase {
 
     public void test_multildap() {
         loginConfig = createLoginConfig(false, false);
-        loginWindow = new LoginWindow(loginConfig, loginHelperMock, null);
+        createLoginWindow(loginConfig, loginHelperMock, null);
         Window window = new Window(loginWindow);
         ComboBox comboBox = window.getComboBox("ldap");
         assertTrue(comboBox.contentEquals(new String[]{"AM", "gdoLdap"}));
@@ -121,7 +130,7 @@ public class LoginWindowTest extends UISpecTestCase {
 
     public void test_okDefaultLDapButton() throws Exception {
         loginConfig = createLoginConfig(false, false);
-        loginWindow = new LoginWindow(loginConfig, loginHelperMock, null);
+        createLoginWindow(loginConfig, loginHelperMock, null);
 
         Window window = fillLoginWindow();
         window.getComboBox("ldap").select("AM");
@@ -139,7 +148,7 @@ public class LoginWindowTest extends UISpecTestCase {
 
     public void test_okMultiLDapButton() throws Exception {
         loginConfig = createLoginConfig(false, false);
-        loginWindow = new LoginWindow(loginConfig, loginHelperMock, null);
+        createLoginWindow(loginConfig, loginHelperMock, null);
 
         Window window = fillLoginWindow();
         window.getComboBox("ldap").select("gdoLdap");
@@ -152,7 +161,8 @@ public class LoginWindowTest extends UISpecTestCase {
 
     public void test_extraComponentContainer() {
         loginConfig = createLoginConfig(false, false);
-        loginWindow = new LoginWindow(loginConfig, loginHelperMock, new JTextField("specific text"));
+        loginWindow = new LoginWindow(loginConfig, loginHelperMock, new JTextField("specific text"), translationManager,
+                                      translationNotifier);
         Window window = new Window(loginWindow);
 
         TextBox extraOne = window.getTextBox("specific text");
@@ -172,7 +182,7 @@ public class LoginWindowTest extends UISpecTestCase {
     public void test_defaultAccountValue() {
         loginConfig.setDefaultLogin("USER");
         loginConfig.setDefaultPassword("PASSWORD");
-        loginWindow = new LoginWindow(loginConfig, loginHelperMock, null);
+        createLoginWindow(loginConfig, loginHelperMock, null);
         Window window = new Window(loginWindow);
 
         assertEquals("USER", window.getTextBox("login").getText());
@@ -186,7 +196,7 @@ public class LoginWindowTest extends UISpecTestCase {
 
     public void test_defaultLoginValue() {
         loginConfig = createLoginConfig(true, true);
-        loginWindow = new LoginWindow(loginConfig, loginHelperMock, null);
+        createLoginWindow(loginConfig, loginHelperMock, null);
         Window window = new Window(loginWindow);
         String dicid = System.getProperty("user.name");
 
@@ -233,13 +243,30 @@ public class LoginWindowTest extends UISpecTestCase {
 
     public void test_unaivailableSplahImageSet() throws Exception {
         loginConfig.setApplicationSplashImage("/images/dummy.jpg");
-        loginWindow = new LoginWindow(loginConfig, loginHelperMock, null);
+        createLoginWindow(loginConfig, loginHelperMock, null);
 
         Window window = new Window(loginWindow);
 
         window.getTextBox("login").setText("USER");
         window.getPasswordField("password").setPassword("PASSWORD");
         clickButton("OK", window);
+    }
+
+
+    private void createLoginWindow(LoginConfig loginConfig,
+                                   LoginCallbackMock loginHelperMock,
+                                   JComponent extraComponent) {
+        loginWindow = new LoginWindow(loginConfig,
+                                      loginHelperMock,
+                                      extraComponent,
+                                      translationManager,
+                                      translationNotifier);
+    }
+
+
+    private void registerLanguageBundles(TranslationManager translationManager) {
+        translationManager.addBundle("net.codjo.security.gui.i18n", Language.FR);
+        translationManager.addBundle("net.codjo.security.gui.i18n", Language.EN);
     }
 
 
