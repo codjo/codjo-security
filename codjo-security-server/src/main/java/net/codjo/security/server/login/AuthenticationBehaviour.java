@@ -1,5 +1,6 @@
 package net.codjo.security.server.login;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import net.codjo.agent.AclMessage;
 import net.codjo.agent.BadContentObjectException;
 import net.codjo.agent.MessageTemplate;
@@ -28,6 +29,7 @@ class AuthenticationBehaviour extends CyclicBehaviour {
     private final SessionLifecycleBehaviour sessionLifecycleBehaviour;
     private MessageTemplate requestTemplate;
     private AclMessage lastAuthenticationMessage;
+    private IpResolver ipResolver = new DefaultIpResolver();
 
 
     AuthenticationBehaviour(String version, SessionLifecycleBehaviour sessionLifecycleBehaviour) {
@@ -76,7 +78,7 @@ class AuthenticationBehaviour extends CyclicBehaviour {
         if (clientIP != null && clientHostname != null && !hasGoodIpResolution(clientIP, clientHostname)) {
             InvalidIPHostnameException invalidIPHostnameException
                   = new InvalidIPHostnameException(clientIP, clientHostname);
-            LOG.error(invalidIPHostnameException.getMessage());
+            LOG.warn(invalidIPHostnameException.getMessage());
             sendReplyMessage(myACLMessage, new LoginEvent(invalidIPHostnameException));
             return;
         }
@@ -102,6 +104,11 @@ class AuthenticationBehaviour extends CyclicBehaviour {
     }
 
 
+    public void setIpResolver(IpResolver ipResolver) {
+        this.ipResolver = ipResolver;
+    }
+
+
     private boolean isLaptop(String hostname) {
         return hostname.startsWith("A7L");
     }
@@ -109,16 +116,21 @@ class AuthenticationBehaviour extends CyclicBehaviour {
 
     private boolean hasGoodIpResolution(String ip, String hostname) {
         try {
-            InetAddress fromName = InetAddress.getByName(ip);
-            InetAddress fromIp = InetAddress.getByName(hostname);
+            InetAddress fromHostName = InetAddress.getByName(hostname);
+            String actualHostName = fromHostName.getCanonicalHostName();
 
-            String expectedHostName = fromName.getCanonicalHostName();
-            String actualHostName = fromIp.getCanonicalHostName();
-
-            boolean result = fromName.getHostAddress().equals(ip)
+            String expectedHostName = ipResolver.resolve(ip);
+            InetAddress fromIp = InetAddress.getByName(ip);
+            boolean result = fromIp.getHostAddress().equals(ip)
                              && expectedHostName.equals(actualHostName);
             if (!result) {
                 LOG.warn("Expected host name: " + expectedHostName + ", actual host name: " + actualHostName);
+                if (!expectedHostName.contains(".")) {
+                    LOG.warn(
+                          "Ip resolution ignored since hostname is not resolved by dns server: " + ip + ", host name: "
+                          + hostname);
+                    return true;
+                }
             }
             return result;
         }
@@ -150,5 +162,16 @@ class AuthenticationBehaviour extends CyclicBehaviour {
 
     AclMessage getLastAuthenticationMessage() {
         return lastAuthenticationMessage;
+    }
+
+
+    interface IpResolver {
+        String resolve(String ipAddress) throws UnknownHostException;
+    }
+
+    private class DefaultIpResolver implements IpResolver {
+        public String resolve(String ipAddress) throws UnknownHostException {
+            return InetAddress.getByName(ipAddress).getCanonicalHostName();
+        }
     }
 }
