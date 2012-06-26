@@ -257,22 +257,6 @@ public class AuthenticationBehaviourTest extends BehaviourTestCase {
                                  SecurityLevel.USER));
         assertFalse(loginEvent.hasFailed());
     }
-//
-//    public void test_bidon() throws Exception {
-//        InetAddress byName = InetAddress.getByName("142.134.65.72");
-//        System.out.println("byName = " + byName);
-//        InetAddress a7WA284 = InetAddress.getByName("A7WA284.am.agf.fr");
-//        System.out.println("a7WA284.isSiteLocalAddress() = " + a7WA284.isSiteLocalAddress());
-//        System.out.println("a7WA284 = " + a7WA284);
-//        System.out.println("byNameCanon = " + byName.getCanonicalHostName());
-//        System.out.println("a7WA284Canon = " + a7WA284.getCanonicalHostName());
-//
-//        InetAddress a7lb009 = InetAddress.getByName("A7LB009");
-//        InetAddress deutch = InetAddress.getByName("183.55.43.73");
-//        System.out.println("isLocal = " + deutch.isSiteLocalAddress());
-//        System.out.println("a7lb009 = " + a7lb009.getCanonicalHostName());
-//        System.out.println("deutch.getCanonicalHostName() = " + deutch.getCanonicalHostName());
-//    }
 
 
     @Override
