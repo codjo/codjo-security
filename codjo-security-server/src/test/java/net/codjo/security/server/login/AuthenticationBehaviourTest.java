@@ -219,6 +219,46 @@ public class AuthenticationBehaviourTest extends BehaviourTestCase {
     }
 
 
+    public void test_badIpControlRejectFrenchClient() throws Exception {
+        configureAgents(DEFAULT_SERVER_VERSION);
+        authenticationBehaviour.setIpResolver(new AuthenticationBehaviour.IpResolver() {
+            public String resolve(String ipAddress) {
+                return "A7WA284.am.agf.fr";
+            }
+        });
+        authenticationBehaviour.action();
+        LoginEvent loginEvent = sendMessageToServerLoginAgent(
+              createLoginMessage(LOGIN,
+                                 PASSWORD,
+                                 null,
+                                 DEFAULT_SERVER_VERSION,
+                                 "142.12.12.12",
+                                 "localhost",
+                                 SecurityLevel.USER));
+        assertTrue(loginEvent.hasFailed());
+    }
+
+
+    public void test_badIpControlAcceptForeignClient() throws Exception {
+        configureAgents(DEFAULT_SERVER_VERSION);
+        authenticationBehaviour.setIpResolver(new AuthenticationBehaviour.IpResolver() {
+            public String resolve(String ipAddress) {
+                return "A7_FOREIGN_WS";
+            }
+        });
+        authenticationBehaviour.action();
+        LoginEvent loginEvent = sendMessageToServerLoginAgent(
+              createLoginMessage(LOGIN,
+                                 PASSWORD,
+                                 null,
+                                 DEFAULT_SERVER_VERSION,
+                                 "183.12.12.12",
+                                 "localhost",
+                                 SecurityLevel.USER));
+        assertFalse(loginEvent.hasFailed());
+    }
+
+
     @Override
     protected void doSetUp() throws MalformedURLException {
         serviceHelperMock = new SecurityServiceHelperMock(logString);
