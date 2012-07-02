@@ -14,6 +14,7 @@ import net.codjo.security.common.login.LoginAction;
 import net.codjo.security.common.login.LoginEvent;
 import net.codjo.security.common.login.LoginProtocol;
 import net.codjo.security.server.api.SecurityServiceHelper;
+import net.codjo.util.network.IpValidator;
 import org.apache.log4j.Logger;
 
 import static net.codjo.agent.AclMessage.OBJECT_LANGUAGE;
@@ -125,7 +126,7 @@ class AuthenticationBehaviour extends CyclicBehaviour {
                              && expectedHostName.equals(actualHostName);
             if (!result) {
                 LOG.warn("Expected host name: " + expectedHostName + ", actual host name: " + actualHostName);
-                if (!expectedHostName.contains(".")) {
+                if (IpValidator.isValid(expectedHostName)) {
                     LOG.warn(
                           "Ip resolution ignored since hostname is not resolved by dns server: " + ip + ", host name: "
                           + hostname);
