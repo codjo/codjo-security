@@ -11,6 +11,7 @@ net.codjo.security.server.login
 	-> net.codjo.plugin.common.session
 	-> net.codjo.security.common.login
 	-> net.codjo.security.server.api
+	-> net.codjo.util.network
 
 net.codjo.security.server.model
 	-> net.codjo.security.common.api

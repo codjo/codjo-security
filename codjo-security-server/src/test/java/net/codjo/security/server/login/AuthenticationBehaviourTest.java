@@ -212,7 +212,7 @@ public class AuthenticationBehaviourTest extends BehaviourTestCase {
                                  PASSWORD,
                                  null,
                                  DEFAULT_SERVER_VERSION,
-                                 "255.0.0.1",
+                                 "xxx.0.0.1",
                                  "localhost",
                                  SecurityLevel.USER));
         assertTrue(loginEvent.hasFailed());
@@ -243,7 +243,7 @@ public class AuthenticationBehaviourTest extends BehaviourTestCase {
         configureAgents(DEFAULT_SERVER_VERSION);
         authenticationBehaviour.setIpResolver(new AuthenticationBehaviour.IpResolver() {
             public String resolve(String ipAddress) {
-                return "A7_FOREIGN_WS";
+                return "183.12.12.12";
             }
         });
         authenticationBehaviour.action();
