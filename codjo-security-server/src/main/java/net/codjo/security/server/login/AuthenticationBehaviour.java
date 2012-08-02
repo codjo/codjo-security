@@ -71,18 +71,18 @@ class AuthenticationBehaviour extends CyclicBehaviour {
             return;
         }
 
-        String clientIP = action.getIp();
+//        String clientIP = action.getIp();
         String clientHostname = action.getHostname();
         if (clientHostname != null && isLaptop(clientHostname)) {
             LOG.info("Laptop detected '" + action);
         }
-        if (clientIP != null && clientHostname != null && !hasGoodIpResolution(clientIP, clientHostname)) {
-            InvalidIPHostnameException invalidIPHostnameException
-                  = new InvalidIPHostnameException(clientIP, clientHostname);
-            LOG.warn(invalidIPHostnameException.getMessage());
-            sendReplyMessage(myACLMessage, new LoginEvent(invalidIPHostnameException));
-            return;
-        }
+//        if (clientIP != null && clientHostname != null && !hasGoodIpResolution(clientIP, clientHostname)) {
+//            InvalidIPHostnameException invalidIPHostnameException
+//                  = new InvalidIPHostnameException(clientIP, clientHostname);
+//            LOG.warn(invalidIPHostnameException.getMessage());
+//            sendReplyMessage(myACLMessage, new LoginEvent(invalidIPHostnameException));
+//            return;
+//        }
 
         try {
             LOG.info("Trying to login with (user: " + action.getLogin() + ", securityLevel: "
