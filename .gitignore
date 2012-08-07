@@ -8,3 +8,4 @@ MTPs-*.*
 pom.xml.*
 release.properties
 .DS_Store
+*.log

@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
  *
  */
 class SessionLifecycleBehaviour extends AmsListenerBehaviour {
-    private static final Logger LOG = Logger.getLogger(ServerLoginAgent.class);
+    private static final Logger LOG = Logger.getLogger(SessionLifecycleBehaviour.class);
     private final SessionManager sessionManager;
     private final Map<Aid, UserId> userIdMap = new HashMap<Aid, UserId>();
 
