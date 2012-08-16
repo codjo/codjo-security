@@ -16,7 +16,6 @@ import net.codjo.security.common.login.LoginProtocol;
 import net.codjo.security.server.api.SecurityServiceHelperMock;
 import net.codjo.security.server.api.SessionManagerMock;
 import net.codjo.test.common.LogString;
-import org.junit.Ignore;
 /**
  *
  */
@@ -205,48 +204,8 @@ public class AuthenticationBehaviourTest extends BehaviourTestCase {
     }
 
 
-//    public void test_clientWithInvalidIPHostname() throws Exception {
-//        configureAgents(DEFAULT_SERVER_VERSION);
-//        authenticationBehaviour.action();
-//        LoginEvent loginEvent = sendMessageToServerLoginAgent(
-//              createLoginMessage(LOGIN,
-//                                 PASSWORD,
-//                                 null,
-//                                 DEFAULT_SERVER_VERSION,
-//                                 "xxx.0.0.1",
-//                                 "localhost",
-//                                 SecurityLevel.USER));
-//        assertTrue(loginEvent.hasFailed());
-//    }
-//
-//
-//    public void test_badIpControlRejectFrenchClient() throws Exception {
-//        configureAgents(DEFAULT_SERVER_VERSION);
-//        authenticationBehaviour.setIpResolver(new AuthenticationBehaviour.IpResolver() {
-//            public String resolve(String ipAddress) {
-//                return "A7WA284.am.agf.fr";
-//            }
-//        });
-//        authenticationBehaviour.action();
-//        LoginEvent loginEvent = sendMessageToServerLoginAgent(
-//              createLoginMessage(LOGIN,
-//                                 PASSWORD,
-//                                 null,
-//                                 DEFAULT_SERVER_VERSION,
-//                                 "142.12.12.12",
-//                                 "localhost",
-//                                 SecurityLevel.USER));
-//        assertTrue(loginEvent.hasFailed());
-//    }
-
-
     public void test_badIpControlAcceptForeignClient() throws Exception {
         configureAgents(DEFAULT_SERVER_VERSION);
-        authenticationBehaviour.setIpResolver(new AuthenticationBehaviour.IpResolver() {
-            public String resolve(String ipAddress) {
-                return "183.12.12.12";
-            }
-        });
         authenticationBehaviour.action();
         LoginEvent loginEvent = sendMessageToServerLoginAgent(
               createLoginMessage(LOGIN,
