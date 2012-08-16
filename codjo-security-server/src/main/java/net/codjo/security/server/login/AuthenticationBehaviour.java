@@ -9,12 +9,10 @@ import net.codjo.agent.UserId;
 import net.codjo.agent.behaviour.CyclicBehaviour;
 import net.codjo.security.common.api.User;
 import net.codjo.security.common.login.IncompatibleVersionException;
-import net.codjo.security.common.login.InvalidIPHostnameException;
 import net.codjo.security.common.login.LoginAction;
 import net.codjo.security.common.login.LoginEvent;
 import net.codjo.security.common.login.LoginProtocol;
 import net.codjo.security.server.api.SecurityServiceHelper;
-import net.codjo.util.network.IpValidator;
 import org.apache.log4j.Logger;
 
 import static net.codjo.agent.AclMessage.OBJECT_LANGUAGE;
@@ -30,7 +28,6 @@ class AuthenticationBehaviour extends CyclicBehaviour {
     private final SessionLifecycleBehaviour sessionLifecycleBehaviour;
     private MessageTemplate requestTemplate;
     private AclMessage lastAuthenticationMessage;
-    private IpResolver ipResolver = new DefaultIpResolver();
 
 
     AuthenticationBehaviour(String version, SessionLifecycleBehaviour sessionLifecycleBehaviour) {
@@ -71,18 +68,10 @@ class AuthenticationBehaviour extends CyclicBehaviour {
             return;
         }
 
-//        String clientIP = action.getIp();
         String clientHostname = action.getHostname();
         if (clientHostname != null && isLaptop(clientHostname)) {
             LOG.info("Laptop detected '" + action);
         }
-//        if (clientIP != null && clientHostname != null && !hasGoodIpResolution(clientIP, clientHostname)) {
-//            InvalidIPHostnameException invalidIPHostnameException
-//                  = new InvalidIPHostnameException(clientIP, clientHostname);
-//            LOG.warn(invalidIPHostnameException.getMessage());
-//            sendReplyMessage(myACLMessage, new LoginEvent(invalidIPHostnameException));
-//            return;
-//        }
 
         try {
             LOG.info("Trying to login with (user: " + action.getLogin() + ", securityLevel: "
@@ -105,40 +94,8 @@ class AuthenticationBehaviour extends CyclicBehaviour {
     }
 
 
-    public void setIpResolver(IpResolver ipResolver) {
-        this.ipResolver = ipResolver;
-    }
-
-
     private boolean isLaptop(String hostname) {
         return hostname.startsWith("A7L");
-    }
-
-
-    private boolean hasGoodIpResolution(String ip, String hostname) {
-        try {
-            InetAddress fromHostName = InetAddress.getByName(hostname);
-            String actualHostName = fromHostName.getCanonicalHostName();
-
-            String expectedHostName = ipResolver.resolve(ip);
-            InetAddress fromIp = InetAddress.getByName(ip);
-            boolean result = fromIp.getHostAddress().equals(ip)
-                             && expectedHostName.equals(actualHostName);
-            if (!result) {
-                LOG.warn("Expected host name: " + expectedHostName + ", actual host name: " + actualHostName);
-                if (IpValidator.isValid(expectedHostName)) {
-                    LOG.warn(
-                          "Ip resolution ignored since hostname is not resolved by dns server: " + ip + ", host name: "
-                          + hostname);
-                    return true;
-                }
-            }
-            return result;
-        }
-        catch (Throwable throwable) {
-            LOG.warn("Unattended exception", throwable);
-            return false;
-        }
     }
 
 
