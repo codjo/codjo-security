@@ -13,7 +13,7 @@
     </parent>
     <groupId>net.codjo.security</groupId>
     <artifactId>codjo-security</artifactId>
-    <version>0.69-SNAPSHOT</version>
+    <version>0.69</version>
     <dependencyManagement>
         <dependencies>
             <dependency>
