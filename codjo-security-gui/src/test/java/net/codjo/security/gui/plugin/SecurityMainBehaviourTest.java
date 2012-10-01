@@ -41,7 +41,6 @@ public class SecurityMainBehaviourTest extends UISpecTestCase {
 
         registerLanguageBundles(translationManager);
 
-        InternationalizationTestUtil.initErrorDialogTranslationBackpack();
         loginConfigLoaderMock.mockLoad(createLoginConfig());
         applicationCoreMock.mockStart();
         securityMainBehaviour = new SecurityMainBehaviour(securityGuiConfiguration,
