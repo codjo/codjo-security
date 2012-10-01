@@ -48,6 +48,7 @@ class SecurityMainBehaviour implements MainBehaviour {
         this.loginConfigLoader = loginConfigLoader;
         this.translationManager = translationManager;
         this.translationNotifier = translationNotifier;
+        ErrorDialog.setTranslationBackpack(translationManager, translationNotifier);
     }
 
 
