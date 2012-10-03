@@ -11,7 +11,7 @@
     <parent>
         <groupId>net.codjo.security</groupId>
         <artifactId>codjo-security</artifactId>
-        <version>0.70-SNAPSHOT</version>
+        <version>0.70</version>
     </parent>
     <dependencies>
         <dependency>
